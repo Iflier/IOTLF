@@ -18,6 +18,8 @@ Modified on : 2017.10.15
 在初始化redis实例时添加decode_response=True参数，这样返回的就是字符串了
 Modified on: 2018.01.31
 取消对登陆人数的限制
+Modified on: 2018.02.02
+美化样式
 Author : Iflier
 """
 print(__doc__)
@@ -50,7 +52,7 @@ except Exception as err:
     print("Connect to Port {0} failed  :(".format(PORT))
     sys.exit(1)
 
-if os.path.exists("E:\\PYTHON\\WEBServer\\Tornado\\IOTVer3.4\\config.pkl"):
+if os.path.exists(os.path.join(os.getcwd(), 'config.pkl')):
     with open("config.pkl", 'rb') as file:
         conf = pickle.load(file)
 else:
