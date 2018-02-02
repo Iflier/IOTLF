@@ -125,6 +125,7 @@ class LoginHandler(BaseHandler):
 
     def prepare(self):
         self.cursor = self.db.cursor()
+        # 首次打开页面会把Redis中缓存的设备的上一次状态同步过来
         bytes_count = self.board.write((self.cache.get("ledStatus") + ',' + self.cache.get("fanSpeed") + ';').encode(encoding='utf_8'))
         print("At login, written {0:>02,d} bytes.".format(bytes_count))
 

@@ -4,7 +4,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;至于为什么选择了LED和涡轮风扇是因为，LED是开发板板载的外设，免得手动焊一个；<br>
 使用涡轮风扇的最初目的是给`Raspberry Pi 3`散热用的 :-)，嗖嗖的 ~~~
 
-# 网页的美化，使用了layui.js，再此表示感谢
+###### 网页的美化，使用了`layui.js`，再此表示感谢
 
 # License
 GPL V2.0
