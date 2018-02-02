@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Welcome</title>
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/welcome.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('layui/css/layui.css')}}">
+        <!-- <link rel="stylesheet" href="../static/css/layui.css"/> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../static/css/welcome.css"/> -->
+        <script src="../static/js/jquery-3.2.1.js"></script>
+        <script src="{{static_url('layui/layui.js')}}"></script>
+        <script>
+        //一般直接写在一个js文件中
+        layui.use(['layer', 'form'], function(){
+            var layer = layui.layer ,form = layui.form;
+        });
+        </script>
+        <script type="text/javascript" language="javascript">
+            window.onload = function(){
+            m = document.getElementById("music");
+            m.volume = 0.3;
+            }
+        </script>
+        <script type="text/javascript" language="javascript">
+        function rpmChange(){
+            var newRPM = document.getElementById("rpm").value;
+            document.getElementById("rpmValue").innerHTML = newRPM;
+            console.log("Happy.");
+        };
+        function showTipsOnFan(){
+            layer.tips("此为暴力风扇，最大转速5000+转/min，小心你的手指头哦", "#rpm",{
+                tips: [1, "#3595CC"],
+                time: 1600
+            });
+        };
+        </script>
+    </head>
+    <body>
+        <div class="head">
+            <h2 style="clear:left;">欢迎登录</h2><a style="float:right" href="/logout">退出登录</a>
+            <h3>您好，亲爱的&nbsp;&nbsp;{{username}}用户，您是第&nbsp <b>{{times}}</b>&nbsp 位访客.</h3>
+        </div>
+        <div id="mainContent">
+            <h1>便捷导航</h1><br/>
+            <h2>门户网站</h2>
+            <section>
+                <a href="http://www.firefoxchina.cn/">火狐中文网</a>
+                <a href="http://music.163.com/">网易云音乐</a>                        
+                <a href="http://news.sina.com.cn/">新浪新闻</a>
+                <a href="http://www.xinhuanet.com/">新华网</a>
+                <a href="http://www.163.com/">网易</a>
+                <a href="https://www.zhihu.com/">知乎</a>
+            </section><br/>
+            <section>
+                <h2>音乐欣赏</h2>
+                <audio src="../static/musics/lakemonth.mp3" id="music" loop="loop" oncontextmenu="return false"
+                controls="controls" preload="auto" controlslist="nodownload">抱歉，你的浏览器不支持该元素.
+                </audio>
+            </section>
+        </div>
+        <div class="functionArea">
+            <form method="post" class="layui-form">
+                {% module xsrf_form_html() %}
+                <br/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="text-align:left;"><strong>LED</strong>状态</label>
+                    <div class="layui-input-block">
+                      <input type="radio" id="statusOFF" name="ledSwitch" value="OFF" title="关" checked>
+                      <input type="radio" id="statusON" name="ledSwitch" value="ON" title="开">
+                    </div>
+                </div>
+                FAN转速控制<br/>
+                <input type="range" min="0" max="100" step="5" id="rpm" name="fanSpeed" onmouseup="rpmChange();" onmouseover="showTipsOnFan();"/>
+                <span id="rpmValue"></span><span>%</span>
+                <br/><br/>
+                <!-- <input id="button" type="submit" value="确认"/> -->
+                <button class="layui-btn  layui-btn-danger">确认</button>
+            </form>
+        </div>
+        {% if isinstance(fanSpeed, str) %}
+        <script type="text/javascript">           
+            document.getElementById("rpmValue").innerHTML = {{fanSpeed}};
+            $("#rpm").attr("value", {{fanSpeed}});
+        </script>
+        {% else %}
+        <script type="text/javascript">
+            document.getElementById("rpmValue").innerHTML = "0";
+            $("#rpm").removeAttr("value");
+        </script>
+        {% end %}
+
+        {% if ledStatus == "ON" %}
+        <script type="text/javascript">
+            // alert("Value of ledStatus: ON");
+            $("#statusON").attr("checked", "checked");
+            $("#statusOFF").removeAttr("checked");
+        </script>
+        {% elif ledStatus == "OFF" %}
+        <script type="text/javascript">
+            // alert("Value of ledStgatus: OFF");
+            $("#statusON").removeAttr("checked");
+            $("#statusOFF").attr("checked", "checked");
+        </script>
+        {% else %}
+        <script type="text/javascript">
+            $("#statusON").removeAttr("checked");
+            $("#statusOFF").attr("checked", "checked");
+        </script>
+        {% end %}
+        
+        <footer class="layui-bg-blue">
+            <p>版权所有 &copy 2017 - 2018</p>
+        </footer>
+    </body>
+</html>
