@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 FAN转速控制<br/>
-                <input type="range" min="0" max="100" step="5" id="rpm" name="fanSpeed" onmouseup="rpmChange();" onmouseover="showTipsOnFan();"/>
+                <input type="range" min="0" max="100" step="5" id="rpm" name="fanSpeed" defaultValue=0 onmouseup="rpmChange();" onmouseover="showTipsOnFan();"/>
                 <span id="rpmValue"></span><span>%</span>
                 <br/><br/>
                 <!-- <input id="button" type="submit" value="确认"/> -->
@@ -78,31 +78,49 @@
             </form>
         </div>
         {% if isinstance(fanSpeed, str) %}
-        <script type="text/javascript">           
+        <script type="text/javascript" language="javascript">
+            // 有点重复，否则滑块位置会回到中间
             document.getElementById("rpmValue").innerHTML = {{fanSpeed}};
             $("#rpm").attr("value", {{fanSpeed}});
+            layui.use(['layer', 'form'], function(){
+                var layer = layui.layer ,form = layui.form;
+                layer.msg(
+                    "当前转速为最大值的 " + {{fanSpeed}} + "%",
+                    {
+                        time: 600,
+                        icon: 6,
+                        shade: 0.3,
+                        anim: 0
+                    },
+                    // 成功后的回调
+                    function(){
+                        document.getElementById("rpmValue").innerHTML = {{fanSpeed}};
+                        $("#rpm").attr("value", {{fanSpeed}});
+                    }
+                );
+            });
         </script>
         {% else %}
-        <script type="text/javascript">
+        <script type="text/javascript" language="javascript">
             document.getElementById("rpmValue").innerHTML = "0";
             $("#rpm").removeAttr("value");
         </script>
         {% end %}
 
         {% if ledStatus == "ON" %}
-        <script type="text/javascript">
+        <script type="text/javascript" language="javascript">
             // alert("Value of ledStatus: ON");
             $("#statusON").attr("checked", "checked");
             $("#statusOFF").removeAttr("checked");
         </script>
         {% elif ledStatus == "OFF" %}
-        <script type="text/javascript">
+        <script type="text/javascript" language="javascript">
             // alert("Value of ledStgatus: OFF");
             $("#statusON").removeAttr("checked");
             $("#statusOFF").attr("checked", "checked");
         </script>
         {% else %}
-        <script type="text/javascript">
+        <script type="text/javascript" language="javascript">
             $("#statusON").removeAttr("checked");
             $("#statusOFF").attr("checked", "checked");
         </script>
