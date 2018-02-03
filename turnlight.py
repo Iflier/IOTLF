@@ -219,7 +219,7 @@ class WelcomeHandler(BaseHandler):
         else:
             ledStatus = self.get_argument("ledSwitch", "OFF")
             fanSpeed = self.get_argument("fanSpeed", "20")
-            print("Type of fanSpeed: {0}".format(type(fanSpeed)))  # 是 str
+            # print("Type of fanSpeed: {0}".format(type(fanSpeed)))  # 是 str
             # print(ledStatus)
             print("Got fan speed: {0}".format(fanSpeed))
             print("Write: {0}".format((ledStatus + ',' + fanSpeed + ';')))

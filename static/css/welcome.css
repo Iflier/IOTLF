@@ -4,8 +4,9 @@
 .head{
     text-align: center;
     padding-top: 5px;
+    padding-right: 15px;
     background-color: #ADFF2F;
-    height: 100px;
+    height: 110px;
     border-radius: 5px;
     border:1px solid #FAFAD2;
     margin: 10px 0 0 0;

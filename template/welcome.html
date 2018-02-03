@@ -28,7 +28,7 @@
             console.log("Happy.");
         };
         function showTipsOnFan(){
-            layer.tips("此为暴力风扇，最大转速5000+转/min，小心你的手指头哦", "#rpm",{
+            layer.tips("此为暴力风扇，最大转速10000+ RPM，小心你的手指头哦", "#rpm",{
                 tips: [1, "#3595CC"],
                 time: 1600
             });
@@ -37,8 +37,9 @@
     </head>
     <body>
         <div class="head">
-            <h2 style="clear:left;">欢迎登录</h2><a style="float:right" href="/logout">退出登录</a>
+            <h2 style="clear:left;">欢迎登录</h2><br>
             <h3>您好，亲爱的&nbsp;&nbsp;{{username}}用户，您是第&nbsp <b>{{times}}</b>&nbsp 位访客.</h3>
+            <a style="float:right; font-size: 15px;" href="/logout/">退出登录<i class="layui-icon" style="font-size: 25px; color: #1E9FFF;">&#xe609;</i></a>
         </div>
         <div id="mainContent">
             <h1>便捷导航</h1><br/>
@@ -87,7 +88,7 @@
                 layer.msg(
                     "当前转速为最大值的 " + {{fanSpeed}} + "%",
                     {
-                        time: 600,
+                        time: 750,
                         icon: 6,
                         shade: 0.3,
                         anim: 0
